@@ -1,0 +1,310 @@
+<style>
+  .title_ranking {
+    background: #F23D3D;
+    border-radius: 10px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 3rem;
+    position: relative;
+    width: 60%;
+    margin: 0 auto 2rem;
+    font-weight: 600;
+}
+.title_ranking img {
+    width: 20px;
+}
+#ranking_place {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+ul#ranking, .post-body ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.ranking img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+#ranking ul li{
+    list-style: none;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: space-between;
+    display: flex;
+    color: #000;
+    z-index: 999;
+    position: relative;
+}
+
+.ranking_nome_container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.ranking_pontos {
+    display: flex;
+    width: 9%;
+    font-weight: 500;
+}
+.ranking_posicao {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    padding: 1%;
+    width: 9%;
+    margin: 0;
+    font-weight: 700;
+    border-right: 1px solid #000;
+}
+.gold {
+    background-color: #F1A728;
+    box-shadow: inset 0 21px 14px #ffd075;
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+}
+
+  .silver {
+	background-color: #E1E1E1;
+    box-shadow: inset 0 21px 14px #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+}
+
+  .bronze {
+    background-color: #CDA15E;
+    box-shadow: inset 0 21px 14px #F6CC8C;
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+}
+
+.ranking_pontos {
+    padding: 1%;
+    border-left: 1px solid #000;
+}
+.sub-title-ranking.hidden {
+    display: none;
+}
+
+.ranking_nome {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 2% 0;
+    width: 60%
+}
+
+.sub-title-ranking {
+    position: relative;
+    top: 11px;
+}
+.sub-title-ranking p {
+    font-size: 12px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.sub-title-ranking.one {
+    background: #F2935C;
+    padding: 0.2rem;
+    border-radius: 10px 10px 0 0;
+    width: 10%;
+}
+.sub-title-ranking.two {
+    background: #FFFFFF;
+    padding: 0.2rem;
+    width: 10%;
+    border-radius: 10px 10px 0 0;
+    color: #000;
+}
+
+select#select_ranking {
+    outline: none;
+    border-radius: 3px;
+    padding: 1%;
+    width: 60%;
+    height: 40px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid #dedede;
+    transition: all 0.3s ease;
+    border-bottom-width: 3px;
+    padding-right: 45px;
+	margin: auto;
+}
+.container_ranking {width: 90%;max-width: 1200px; margin: 0 auto; padding: 20px;@media screen and (max-width: 768px) { width: 95%; }@media screen and (max-width: 480px) {padding: 10px;}}]]>
+</style>
+
+<div class="container_ranking">
+    <div class="title_ranking">
+        <p>Tabela de Ranking das Olimpíadas</p>
+        <img
+            src="https://imgur.com/nLAgCcL.png"
+            alt="Tocha branca com três quadrados para cima como fogo e três quadrado para baixo como base"
+        />
+    </div>
+
+ <div id="ranking_place">
+        <div class="sub-title-ranking one hidden">
+            <p>Ranking</p>
+        </div>
+        <select id="select_ranking">
+            <option value="" disabled selected>Filtre o placar pelo esporte</option>
+            <option value="futebol">Futebol</option>
+            <option value="corrida">Corrida</option>
+            <option value="canoagem">Canoagem</option>
+            <option value="kart">Kart em Dupla</option>
+            <option value="tiro">Tiro-ao-alvo</option>
+            <option value="pontuacao_geral">Pontuação Geral</option>
+        </select>
+        <div class="sub-title-ranking two hidden">
+            <p>Placar</p>
+        </div>
+    </div>
+
+
+    <ul id="ranking" class="ranking"></ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const tabela = [
+        { posicao: 1, nome: "Military Times1", imagem: "https://via.placeholder.com/40", pontuacao_futebol: 150, pontuacao_corrida: 100, pontuacao_canoagem: 80, pontuacao_kart: 120, pontuacao_tiro: 90, pontuacao_geral: 540 },
+        { posicao: 2, nome: "Military Times2", imagem: "https://via.placeholder.com/40", pontuacao_futebol: 140, pontuacao_corrida: 110, pontuacao_canoagem: 70, pontuacao_kart: 130, pontuacao_tiro: 100, pontuacao_geral: 550 },
+        { posicao: 3, nome: "Military Times3", imagem: "https://via.placeholder.com/40", pontuacao_futebol: 130, pontuacao_corrida: 120, pontuacao_canoagem: 90, pontuacao_kart: 110, pontuacao_tiro: 80, pontuacao_geral: 530 },
+        { posicao: 4, nome: "Military Times4", imagem: "https://via.placeholder.com/40", pontuacao_futebol: 160, pontuacao_corrida: 130, pontuacao_canoagem: 100, pontuacao_kart: 140, pontuacao_tiro: 110, pontuacao_geral: 640 },
+    ];
+
+    const select = document.getElementById('select_ranking');
+    const rankingContainer = document.getElementById('ranking');
+    const subTitleOne = document.querySelector('.sub-title-ranking.one');
+    const subTitleTwo = document.querySelector('.sub-title-ranking.two');
+
+    function gerarListaEsporte(categoria) {
+        const listaEsporte = document.createElement('ul');
+        listaEsporte.classList.add('ranking');
+
+        tabela.sort((a, b) => b['pontuacao_' + categoria] - a['pontuacao_' + categoria]);
+
+        tabela.slice(0, 11).forEach((item, index) => {
+            const li = document.createElement('li');
+
+            const posicaoSpan = document.createElement('span');
+            posicaoSpan.classList.add('ranking_posicao');
+            posicaoSpan.innerHTML = `${index + 1}&ordm; `;
+
+            const imagem = document.createElement('img');
+            imagem.src = item.imagem;
+            imagem.alt = item.nome;
+            imagem.classList.add('ranking_imagem');
+
+            const nomeSpan = document.createElement('span');
+            nomeSpan.classList.add('ranking_nome');
+            nomeSpan.textContent = item.nome;
+
+            const pontuacaoSpan = document.createElement('span');
+            pontuacaoSpan.classList.add('ranking_pontos');
+            pontuacaoSpan.textContent = ` ${item['pontuacao_' + categoria]} pontos`;
+
+            if (index === 0) {
+                pontuacaoSpan.classList.add('gold');
+            } else if (index === 1) {
+                pontuacaoSpan.classList.add('silver');
+            } else if (index === 2) {
+                pontuacaoSpan.classList.add('bronze');
+            } else if (index === 10) {
+              pontuacaoSpan.classList.add('menorColocação');
+            } else if (index === 11) {
+              pontuacaoSpan.classList.add('menorColocação');
+            }
+
+            li.appendChild(posicaoSpan);
+            li.appendChild(imagem);
+            li.appendChild(nomeSpan);
+            li.appendChild(pontuacaoSpan);
+
+            listaEsporte.appendChild(li);
+        });
+
+        return listaEsporte;
+    }
+
+    function gerarListaGeral() {
+        const listaGeral = document.createElement('ul');
+        listaGeral.classList.add('ranking');
+
+        tabela.sort((a, b) => b.pontuacao_geral - a.pontuacao_geral);
+
+        tabela.slice(0, 11).forEach((item, index) => {
+            const li = document.createElement('li');
+
+            const posicaoSpan = document.createElement('span');
+            posicaoSpan.classList.add('ranking_posicao');
+            posicaoSpan.innerHTML = `${index + 1}&ordm; `;
+
+            const imagem = document.createElement('img');
+            imagem.src = item.imagem;
+            imagem.alt = item.nome;
+            imagem.classList.add('ranking_imagem');
+
+            const nomeSpan = document.createElement('span');
+            nomeSpan.classList.add('ranking_nome');
+            nomeSpan.textContent = item.nome;
+
+            const pontuacaoSpan = document.createElement('span');
+            pontuacaoSpan.classList.add('ranking_pontos');
+            pontuacaoSpan.textContent = ` ${item.pontuacao_geral} pontos`;
+
+            if (index === 0) {
+                pontuacaoSpan.classList.add('gold');
+            } else if (index === 1) {
+                pontuacaoSpan.classList.add('silver');
+            } else if (index === 2) {
+                pontuacaoSpan.classList.add('bronze');
+            } else if (index === 10) {
+              pontuacaoSpan.classList.add('menorColocação');
+            } else if (index === 11) {
+              pontuacaoSpan.classList.add('menorColocação');
+            }
+
+            li.appendChild(posicaoSpan);
+            li.appendChild(imagem);
+            li.appendChild(nomeSpan);
+            li.appendChild(pontuacaoSpan);
+
+            listaGeral.appendChild(li);
+        });
+
+        return listaGeral;
+    }
+
+    select.addEventListener('change', function () {
+        const categoriaSelecionada = this.value;
+        if (categoriaSelecionada) {
+            rankingContainer.innerHTML = ''; // Limpar o ranking antes de adicionar os itens
+
+            if (categoriaSelecionada === 'pontuacao_geral') {
+                const listaGeral = gerarListaGeral();
+                rankingContainer.appendChild(listaGeral);
+            } else {
+                const listaEsporte = gerarListaEsporte(categoriaSelecionada.toLowerCase());
+                rankingContainer.appendChild(listaEsporte);
+            }
+
+            subTitleOne.classList.remove('hidden');
+            subTitleTwo.classList.remove('hidden');
+        }
+    });
+});
+</script>
